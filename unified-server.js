@@ -1102,7 +1102,7 @@ class RequestHandler {
           const streamState = { inThought: false };
 
           while (true) {
-            const message = await messageQueue.dequeue(300000); // 5分钟超时
+            const message = await messageQueue.dequeue(600000); // 5分钟超时
             if (message.type === "STREAM_END") {
               if (streamState.inThought) {
                 const closeThoughtPayload = {
@@ -1141,7 +1141,7 @@ class RequestHandler {
 
           let fullBody = "";
           while (true) {
-            const message = await messageQueue.dequeue(300000);
+            const message = await messageQueue.dequeue(600000);
             if (message.type === "STREAM_END") break;
             if (message.data) fullBody += message.data;
           }
@@ -1161,7 +1161,7 @@ class RequestHandler {
       } else {
         let fullBody = "";
         while (true) {
-          const message = await messageQueue.dequeue(300000);
+          const message = await messageQueue.dequeue(600000);
           if (message.type === "STREAM_END") {
             break;
           }
@@ -1356,7 +1356,7 @@ class RequestHandler {
                 reject(
                   new Error("Response from browser timed out after 300 seconds")
                 ),
-              300000
+              600000
             )
           );
           lastMessage = await Promise.race([
@@ -1563,7 +1563,7 @@ class RequestHandler {
       // 2. 准备一个缓冲区，并确保循环等待直到收到结束信号
       let fullBody = "";
       while (true) {
-        const message = await messageQueue.dequeue(300000);
+        const message = await messageQueue.dequeue(600000);
         if (message.type === "STREAM_END") {
           this.logger.info("[Request] 收到结束信号，数据接收完毕。");
           break;
@@ -2678,4 +2678,3 @@ if (require.main === module) {
 }
 
 module.exports = { ProxyServerSystem, BrowserManager, initializeServer };
-
