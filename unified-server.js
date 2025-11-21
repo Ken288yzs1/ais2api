@@ -2207,9 +2207,9 @@ class ProxyServerSystem extends EventEmitter {
     const app = this._createExpressApp();
     this.httpServer = http.createServer(app);
 
-    this.httpServer.keepAliveTimeout = 120000;
-    this.httpServer.headersTimeout = 125000;
-    this.httpServer.requestTimeout = 120000;
+    this.httpServer.keepAliveTimeout = 630000;
+    this.httpServer.headersTimeout = 635000;
+    this.httpServer.requestTimeout = 630000;
 
     return new Promise((resolve) => {
       this.httpServer.listen(this.config.httpPort, this.config.host, () => {
@@ -2678,3 +2678,4 @@ if (require.main === module) {
 }
 
 module.exports = { ProxyServerSystem, BrowserManager, initializeServer };
+
